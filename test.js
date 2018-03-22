@@ -7,9 +7,9 @@ const app = require('./server.js');
 
 describe('GET REQUEST', function(){
     this.timeout(5000);
-    it('should return a order',function(){
+    it('SHOULD RETURN A ORDER',function(){
         return chai.request(app)
-        .get('admin/order/34')
+        .get('/admin/order/34')
         .then(function(res){
             expect(res).to.have.status(200);
             expect(res).to.be.json;
@@ -31,7 +31,7 @@ describe('POST REQUEST', function(){
     this.timeout(5000);
       it('SHOULD ADD NEW ORDER', function() {
         return chai.request(app)
-          .post('admin/order')
+          .post('/admin/order')
           .set("Content-Type", "application/json")
           .send({
             "cid": '420',
@@ -47,7 +47,7 @@ describe('POST REQUEST', function(){
       });
       it('SHOULD RETURN BAD REQUEST', function() {
         return chai.request(app)
-          .post('admin/order')
+          .post('/someOtherURL')
           .type('form')
           .send({
             color: 'YELLOW'
@@ -56,7 +56,7 @@ describe('POST REQUEST', function(){
             throw new Error('Invalid content type!');
           })
           .catch(function(err) {
-            expect(err).to.have.status(500);
+            expect(err).to.have.status(404);
           });
       });
   });
